@@ -145,9 +145,10 @@ class EntropyProxy:
                     token = choice["delta"]["content"]
                     full_content += token
                 
-                # Calculate entropy from logprobs
-                if choice.get("logprobs", {}).get("content"):
-                    logprobs_data = choice["logprobs"]["content"]
+                # Calculate entropy from logprobs (handle null)
+                logprobs = choice.get("logprobs")
+                if logprobs and logprobs.get("content"):
+                    logprobs_data = logprobs["content"]
                     if logprobs_data:
                         entropy = self._calculate_entropy(logprobs_data[0])
                         self.monitor.track(token, entropy)
