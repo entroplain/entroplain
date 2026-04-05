@@ -1,0 +1,2 @@
+[console_scripts]
+entroplain = entroplain.cli:main

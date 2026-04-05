@@ -1,0 +1,16 @@
+LICENSE
+README.md
+pyproject.toml
+entroplain/__init__.py
+entroplain/cli.py
+entroplain/hooks.py
+entroplain/monitor.py
+entroplain/providers.py
+entroplain.egg-info/PKG-INFO
+entroplain.egg-info/SOURCES.txt
+entroplain.egg-info/dependency_links.txt
+entroplain.egg-info/entry_points.txt
+entroplain.egg-info/requires.txt
+entroplain.egg-info/top_level.txt
+tests/test_functional.py
+tests/test_monitor.py
