@@ -1,2 +1,3 @@
 [console_scripts]
 entroplain = entroplain.cli:main
+entroplain-proxy = entroplain.proxy:main

@@ -1,6 +1,6 @@
 {
   "name": "entroplain",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Entropy-based early exit for efficient agent reasoning",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
