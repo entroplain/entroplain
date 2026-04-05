@@ -255,21 +255,20 @@ def main():
     
     proxy = EntropyProxy(config)
     
-    print(f"""
-╔═══════════════════════════════════════════════════════════╗
-║           ENTROPPLAIN ENTROPY MONITORING PROXY            ║
-╠═══════════════════════════════════════════════════════════╣
-║  Proxy running on: http://localhost:{args.port}                ║
-║  Provider: {args.provider:<10}                                ║
-║  API Base: {args.api_base:<30}     ║
-║  Early Exit: {'DISABLED' if args.no_early_exit else 'ENABLED'}                               ║
-╠═══════════════════════════════════════════════════════════╣
-║  Set your agent's API endpoint to:                        ║
-║    export OPENAI_BASE_URL=http://localhost:{args.port}          ║
-║    # or for NVIDIA:                                        ║
-║    export NVIDIA_BASE_URL=http://localhost:{args.port}         ║
-╚═══════════════════════════════════════════════════════════╝
-    """)
+    # Clean banner with fixed formatting
+    print("\n" + "="*62)
+    print("  ENTROPPLAIN ENTROPY MONITORING PROXY")
+    print("="*62)
+    print(f"  Proxy:      http://localhost:{args.port}")
+    print(f"  Provider:   {args.provider}")
+    print(f"  API Base:   {args.api_base}")
+    print(f"  Early Exit: {'ENABLED' if not args.no_early_exit else 'DISABLED'}")
+    print("="*62)
+    print("  Usage:")
+    print(f"    export OPENAI_BASE_URL=http://localhost:{args.port}")
+    print("    # or for NVIDIA:")
+    print(f"    export NVIDIA_BASE_URL=http://localhost:{args.port}")
+    print("="*62 + "\n")
     
     proxy.run()
 
