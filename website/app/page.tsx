@@ -1,6 +1,5 @@
 export default function Home() {
-  const styles = {
-    // Vercel color system
+  const colors = {
     black: '#171717',
     white: '#ffffff',
     gray600: '#4d4d4d',
@@ -8,21 +7,31 @@ export default function Home() {
     gray100: '#ebebeb',
     greenAccent: '#22c55e',
     greenLight: '#4ade80',
-    
-    // Shadow-as-border technique (Vercel signature)
     shadowBorder: 'rgba(0, 0, 0, 0.08) 0px 0px 0px 1px',
     shadowCard: 'rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 2px, rgba(0,0,0,0.04) 0px 8px 8px -8px, #fafafa 0px 0px 0px 1px',
   }
 
   return (
-    <main style={{ minHeight: '100vh', background: styles.white }}>
+    <main style={{ minHeight: '100vh', background: colors.white }}>
+      {/* Subtle gradient background */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'radial-gradient(ellipse at top, rgba(34, 197, 94, 0.03) 0%, transparent 50%), radial-gradient(ellipse at bottom right, rgba(59, 130, 246, 0.03) 0%, transparent 50%)',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+
       {/* Navigation */}
       <nav style={{
         position: 'sticky',
         top: 0,
-        background: 'rgba(255,255,255,0.9)',
+        background: 'rgba(255,255,255,0.85)',
         backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid #ebebeb',
+        borderBottom: '1px solid #f0f0f0',
         padding: '0 24px',
         height: '64px',
         display: 'flex',
@@ -35,23 +44,23 @@ export default function Home() {
             width: '32px',
             height: '32px',
             borderRadius: '6px',
-            background: `linear-gradient(135deg, ${styles.greenAccent}, ${styles.greenLight})`,
+            background: `linear-gradient(135deg, ${colors.greenAccent}, ${colors.greenLight})`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}>
             <span style={{ color: 'white', fontWeight: 700, fontSize: '14px' }}>E</span>
           </div>
-          <span style={{ fontWeight: 600, fontSize: '16px', letterSpacing: '-0.02em', color: styles.black }}>Entroplain</span>
+          <span style={{ fontWeight: 600, fontSize: '16px', letterSpacing: '-0.02em', color: colors.black }}>Entroplain</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-          <a href="#how" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>How it works</a>
-          <a href="#features" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Features</a>
-          <a href="https://github.com/entroplain/entroplain" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>GitHub</a>
+          <a href="#how" style={{ color: colors.gray600, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>How it works</a>
+          <a href="#features" style={{ color: colors.gray600, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Features</a>
+          <a href="https://github.com/entroplain/entroplain" style={{ color: colors.gray600, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>GitHub</a>
           <a href="https://pypi.org/project/entroplain/" style={{
             padding: '8px 16px',
-            background: styles.black,
-            color: styles.white,
+            background: colors.black,
+            color: colors.white,
             borderRadius: '6px',
             textDecoration: 'none',
             fontSize: '14px',
@@ -62,10 +71,12 @@ export default function Home() {
 
       {/* Hero */}
       <section style={{
+        position: 'relative',
         maxWidth: '1200px',
         margin: '0 auto',
         padding: '120px 24px 160px',
         textAlign: 'center',
+        zIndex: 1,
       }}>
         {/* Badge */}
         <div style={{
@@ -77,18 +88,18 @@ export default function Home() {
           background: 'rgba(34, 197, 94, 0.08)',
           marginBottom: '32px',
         }}>
-          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: styles.greenAccent }} />
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: colors.greenAccent }} />
           <span style={{ color: '#15803d', fontSize: '13px', fontWeight: 500 }}>Save 30-50% on API costs</span>
         </div>
 
-        {/* Headline - Vercel-style tight tracking */}
+        {/* Headline */}
         <h1 style={{
           fontSize: '72px',
           fontWeight: 600,
           letterSpacing: '-0.04em',
           lineHeight: 1.0,
           margin: '0 0 24px 0',
-          color: styles.black,
+          color: colors.black,
         }}>
           Stop wasting tokens.
         </h1>
@@ -98,7 +109,7 @@ export default function Home() {
           letterSpacing: '-0.04em',
           lineHeight: 1.0,
           margin: '0 0 32px 0',
-          color: styles.gray400,
+          color: colors.gray400,
         }}>
           Exit early when confident.
         </h1>
@@ -106,7 +117,7 @@ export default function Home() {
         {/* Subtitle */}
         <p style={{
           fontSize: '20px',
-          color: styles.gray600,
+          color: colors.gray600,
           lineHeight: 1.7,
           maxWidth: '640px',
           margin: '0 auto 48px',
@@ -119,7 +130,7 @@ export default function Home() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
           <a href="https://pypi.org/project/entroplain/" style={{
             padding: '14px 24px',
-            background: styles.greenAccent,
+            background: colors.greenAccent,
             color: 'white',
             borderRadius: '6px',
             textDecoration: 'none',
@@ -132,12 +143,12 @@ export default function Home() {
           <a href="https://github.com/entroplain/entroplain" style={{
             padding: '14px 24px',
             background: 'transparent',
-            color: styles.black,
+            color: colors.black,
             borderRadius: '6px',
             textDecoration: 'none',
             fontSize: '16px',
             fontWeight: 500,
-            boxShadow: styles.shadowBorder,
+            boxShadow: colors.shadowBorder,
           }}>
             View on GitHub
           </a>
@@ -150,7 +161,7 @@ export default function Home() {
           justifyContent: 'center',
           gap: '48px',
           marginTop: '64px',
-          color: styles.gray400,
+          color: colors.gray400,
           fontSize: '14px',
         }}>
           <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -176,14 +187,16 @@ export default function Home() {
 
       {/* Terminal Demo */}
       <section style={{
+        position: 'relative',
         maxWidth: '900px',
         margin: '0 auto 160px',
         padding: '0 24px',
+        zIndex: 1,
       }}>
         <div style={{
           borderRadius: '12px',
           overflow: 'hidden',
-          boxShadow: styles.shadowCard,
+          boxShadow: colors.shadowCard,
         }}>
           {/* Terminal header */}
           <div style={{
@@ -217,10 +230,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How it Works */}
+      {/* How it Works - with gradient section */}
       <section id="how" style={{
-        background: '#fafafa',
+        position: 'relative',
+        background: 'linear-gradient(180deg, #fafafa 0%, #ffffff 100%)',
         padding: '160px 24px',
+        zIndex: 1,
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{
@@ -229,20 +244,21 @@ export default function Home() {
             letterSpacing: '-0.03em',
             textAlign: 'center',
             marginBottom: '80px',
-            color: styles.black,
+            color: colors.black,
           }}>How it works</h2>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
             {[
-              { num: '01', title: 'Monitor entropy', desc: 'Track token-level entropy in real-time. Low entropy means high confidence — the model knows the answer.', color: styles.greenAccent },
+              { num: '01', title: 'Monitor entropy', desc: 'Track token-level entropy in real-time. Low entropy means high confidence — the model knows the answer.', color: colors.greenAccent },
               { num: '02', title: 'Detect valleys', desc: 'When entropy drops into a sustained valley, the model has converged on a confident, stable answer.', color: '#3b82f6' },
               { num: '03', title: 'Exit early', desc: 'Stop generation once confidence is established. Save 30-50% tokens without quality loss.', color: '#a855f7' },
             ].map((step, i) => (
               <div key={i} style={{
-                background: styles.white,
+                background: colors.white,
                 borderRadius: '12px',
                 padding: '40px 32px',
-                boxShadow: styles.shadowCard,
+                boxShadow: colors.shadowCard,
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
               }}>
                 <div style={{
                   fontSize: '12px',
@@ -256,9 +272,9 @@ export default function Home() {
                   fontWeight: 600,
                   letterSpacing: '-0.02em',
                   marginBottom: '16px',
-                  color: styles.black,
+                  color: colors.black,
                 }}>{step.title}</h3>
-                <p style={{ color: styles.gray600, lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
+                <p style={{ color: colors.gray600, lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
               </div>
             ))}
           </div>
@@ -267,9 +283,11 @@ export default function Home() {
 
       {/* Features */}
       <section id="features" style={{
+        position: 'relative',
         maxWidth: '1200px',
         margin: '0 auto',
         padding: '160px 24px',
+        zIndex: 1,
       }}>
         <h2 style={{
           fontSize: '48px',
@@ -277,7 +295,7 @@ export default function Home() {
           letterSpacing: '-0.03em',
           textAlign: 'center',
           marginBottom: '80px',
-          color: styles.black,
+          color: colors.black,
         }}>Features</h2>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
@@ -290,28 +308,30 @@ export default function Home() {
             { title: 'Python + Node.js', desc: 'Available on PyPI and npm. Use it wherever your agent runs.' },
           ].map((f, i) => (
             <div key={i} style={{
-              background: styles.white,
+              background: colors.white,
               borderRadius: '12px',
               padding: '32px',
-              boxShadow: styles.shadowBorder,
+              boxShadow: colors.shadowBorder,
             }}>
               <h3 style={{
                 fontSize: '18px',
                 fontWeight: 600,
                 letterSpacing: '-0.01em',
                 marginBottom: '12px',
-                color: styles.black,
+                color: colors.black,
               }}>{f.title}</h3>
-              <p style={{ color: styles.gray600, lineHeight: 1.6, margin: 0, fontSize: '15px' }}>{f.desc}</p>
+              <p style={{ color: colors.gray600, lineHeight: 1.6, margin: 0, fontSize: '15px' }}>{f.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats - Fixed width for numbers */}
       <section style={{
-        background: styles.black,
+        position: 'relative',
+        background: colors.black,
         padding: '120px 24px',
+        zIndex: 1,
       }}>
         <div style={{
           maxWidth: '1000px',
@@ -322,31 +342,33 @@ export default function Home() {
           textAlign: 'center',
         }}>
           <div>
-            <div style={{ fontSize: '80px', fontWeight: 600, letterSpacing: '-0.04em', color: styles.greenLight, marginBottom: '8px' }}>30-50%</div>
-            <div style={{ color: styles.gray400, fontSize: '16px' }}>Token savings</div>
+            <div style={{ fontSize: '80px', fontWeight: 600, letterSpacing: '-0.04em', color: colors.greenLight, marginBottom: '8px', whiteSpace: 'nowrap' }}>50%</div>
+            <div style={{ color: colors.gray400, fontSize: '16px' }}>Token savings</div>
           </div>
           <div>
-            <div style={{ fontSize: '80px', fontWeight: 600, letterSpacing: '-0.04em', color: 'white', marginBottom: '8px' }}>0</div>
-            <div style={{ color: styles.gray400, fontSize: '16px' }}>Code changes</div>
+            <div style={{ fontSize: '80px', fontWeight: 600, letterSpacing: '-0.04em', color: 'white', marginBottom: '8px', whiteSpace: 'nowrap' }}>0</div>
+            <div style={{ color: colors.gray400, fontSize: '16px' }}>Code changes</div>
           </div>
           <div>
-            <div style={{ fontSize: '80px', fontWeight: 600, letterSpacing: '-0.04em', color: 'white', marginBottom: '8px' }}>6+</div>
-            <div style={{ color: styles.gray400, fontSize: '16px' }}>LLM providers</div>
+            <div style={{ fontSize: '80px', fontWeight: 600, letterSpacing: '-0.04em', color: 'white', marginBottom: '8px', whiteSpace: 'nowrap' }}>6+</div>
+            <div style={{ color: colors.gray400, fontSize: '16px' }}>LLM providers</div>
           </div>
         </div>
       </section>
 
       {/* Supported Providers */}
       <section style={{
+        position: 'relative',
         maxWidth: '1200px',
         margin: '0 auto',
         padding: '120px 24px',
         textAlign: 'center',
+        zIndex: 1,
       }}>
         <h3 style={{
           fontSize: '14px',
           fontWeight: 500,
-          color: styles.gray400,
+          color: colors.gray400,
           marginBottom: '32px',
           textTransform: 'uppercase',
           letterSpacing: '0.1em',
@@ -363,8 +385,8 @@ export default function Home() {
               padding: '10px 20px',
               background: '#fafafa',
               borderRadius: '6px',
-              boxShadow: styles.shadowBorder,
-              color: styles.gray600,
+              boxShadow: colors.shadowBorder,
+              color: colors.gray600,
               fontSize: '14px',
               fontWeight: 500,
             }}>{p}</div>
@@ -374,12 +396,14 @@ export default function Home() {
 
       {/* Final CTA */}
       <section style={{
+        position: 'relative',
         maxWidth: '900px',
         margin: '0 auto 120px',
         padding: '0 24px',
+        zIndex: 1,
       }}>
         <div style={{
-          background: `linear-gradient(135deg, ${styles.greenAccent}, ${styles.greenLight})`,
+          background: `linear-gradient(135deg, ${colors.greenAccent}, ${colors.greenLight})`,
           borderRadius: '24px',
           padding: '80px 64px',
           textAlign: 'center',
@@ -402,7 +426,7 @@ export default function Home() {
             <a href="https://pypi.org/project/entroplain/" style={{
               padding: '16px 32px',
               background: 'white',
-              color: styles.greenAccent,
+              color: colors.greenAccent,
               borderRadius: '6px',
               textDecoration: 'none',
               fontSize: '16px',
@@ -423,8 +447,10 @@ export default function Home() {
 
       {/* Footer */}
       <footer style={{
+        position: 'relative',
         borderTop: '1px solid #ebebeb',
         padding: '48px 24px',
+        zIndex: 1,
       }}>
         <div style={{
           maxWidth: '1200px',
@@ -438,20 +464,20 @@ export default function Home() {
               width: '24px',
               height: '24px',
               borderRadius: '4px',
-              background: `linear-gradient(135deg, ${styles.greenAccent}, ${styles.greenLight})`,
+              background: `linear-gradient(135deg, ${colors.greenAccent}, ${colors.greenLight})`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}>
               <span style={{ color: 'white', fontWeight: 700, fontSize: '11px' }}>E</span>
             </div>
-            <span style={{ fontWeight: 500, fontSize: '14px', color: styles.black }}>Entroplain</span>
+            <span style={{ fontWeight: 500, fontSize: '14px', color: colors.black }}>Entroplain</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <a href="https://github.com/entroplain/entroplain" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px' }}>GitHub</a>
-            <a href="https://pypi.org/project/entroplain/" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px' }}>PyPI</a>
-            <a href="https://www.npmjs.com/package/entroplain" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px' }}>npm</a>
-            <a href="https://github.com/entroplain/entroplain/blob/main/LICENSE" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px' }}>MIT License</a>
+            <a href="https://github.com/entroplain/entroplain" style={{ color: colors.gray600, textDecoration: 'none', fontSize: '14px' }}>GitHub</a>
+            <a href="https://pypi.org/project/entroplain/" style={{ color: colors.gray600, textDecoration: 'none', fontSize: '14px' }}>PyPI</a>
+            <a href="https://www.npmjs.com/package/entroplain" style={{ color: colors.gray600, textDecoration: 'none', fontSize: '14px' }}>npm</a>
+            <a href="https://github.com/entroplain/entroplain/blob/main/LICENSE" style={{ color: colors.gray600, textDecoration: 'none', fontSize: '14px' }}>MIT License</a>
           </div>
         </div>
       </footer>
