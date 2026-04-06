@@ -12,19 +12,7 @@ export default function Home() {
   }
 
   return (
-    <main style={{ minHeight: '100vh', background: colors.white }}>
-      {/* Subtle gradient background */}
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'radial-gradient(ellipse at top, rgba(34, 197, 94, 0.03) 0%, transparent 50%), radial-gradient(ellipse at bottom right, rgba(59, 130, 246, 0.03) 0%, transparent 50%)',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }} />
-
+    <main style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #f0fdf4 0%, #ffffff 50%, #f0f9ff 100%)' }}>
       {/* Navigation */}
       <nav style={{
         position: 'sticky',
@@ -71,12 +59,10 @@ export default function Home() {
 
       {/* Hero */}
       <section style={{
-        position: 'relative',
         maxWidth: '1200px',
         margin: '0 auto',
         padding: '120px 24px 160px',
         textAlign: 'center',
-        zIndex: 1,
       }}>
         {/* Badge */}
         <div style={{
@@ -85,11 +71,11 @@ export default function Home() {
           gap: '8px',
           padding: '6px 14px',
           borderRadius: '9999px',
-          background: 'rgba(34, 197, 94, 0.08)',
+          background: 'rgba(34, 197, 94, 0.1)',
           marginBottom: '32px',
         }}>
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: colors.greenAccent }} />
-          <span style={{ color: '#15803d', fontSize: '13px', fontWeight: 500 }}>Save 30-50% on API costs</span>
+          <span style={{ color: '#15803d', fontSize: '13px', fontWeight: 500 }}>Save up to 50% on API costs</span>
         </div>
 
         {/* Headline */}
@@ -187,11 +173,9 @@ export default function Home() {
 
       {/* Terminal Demo */}
       <section style={{
-        position: 'relative',
         maxWidth: '900px',
         margin: '0 auto 160px',
         padding: '0 24px',
-        zIndex: 1,
       }}>
         <div style={{
           borderRadius: '12px',
@@ -230,12 +214,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How it Works - with gradient section */}
+      {/* How it Works */}
       <section id="how" style={{
-        position: 'relative',
-        background: 'linear-gradient(180deg, #fafafa 0%, #ffffff 100%)',
+        background: 'linear-gradient(180deg, rgba(240, 253, 244, 0.5) 0%, rgba(239, 246, 255, 0.5) 100%)',
         padding: '160px 24px',
-        zIndex: 1,
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{
@@ -251,14 +233,13 @@ export default function Home() {
             {[
               { num: '01', title: 'Monitor entropy', desc: 'Track token-level entropy in real-time. Low entropy means high confidence — the model knows the answer.', color: colors.greenAccent },
               { num: '02', title: 'Detect valleys', desc: 'When entropy drops into a sustained valley, the model has converged on a confident, stable answer.', color: '#3b82f6' },
-              { num: '03', title: 'Exit early', desc: 'Stop generation once confidence is established. Save 30-50% tokens without quality loss.', color: '#a855f7' },
+              { num: '03', title: 'Exit early', desc: 'Stop generation once confidence is established. Save up to 50% tokens without quality loss.', color: '#a855f7' },
             ].map((step, i) => (
               <div key={i} style={{
                 background: colors.white,
                 borderRadius: '12px',
                 padding: '40px 32px',
                 boxShadow: colors.shadowCard,
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
               }}>
                 <div style={{
                   fontSize: '12px',
@@ -283,11 +264,9 @@ export default function Home() {
 
       {/* Features */}
       <section id="features" style={{
-        position: 'relative',
         maxWidth: '1200px',
         margin: '0 auto',
         padding: '160px 24px',
-        zIndex: 1,
       }}>
         <h2 style={{
           fontSize: '48px',
@@ -326,12 +305,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats - Fixed width for numbers */}
+      {/* Stats */}
       <section style={{
-        position: 'relative',
-        background: colors.black,
+        background: `linear-gradient(135deg, ${colors.black} 0%, #1a1a1a 100%)`,
         padding: '120px 24px',
-        zIndex: 1,
       }}>
         <div style={{
           maxWidth: '1000px',
@@ -358,12 +335,10 @@ export default function Home() {
 
       {/* Supported Providers */}
       <section style={{
-        position: 'relative',
         maxWidth: '1200px',
         margin: '0 auto',
         padding: '120px 24px',
         textAlign: 'center',
-        zIndex: 1,
       }}>
         <h3 style={{
           fontSize: '14px',
@@ -383,7 +358,7 @@ export default function Home() {
           {['OpenAI', 'Anthropic Claude', 'NVIDIA NIM', 'Google Gemini', 'OpenRouter', 'Ollama', 'Together AI', 'Groq'].map((p) => (
             <div key={p} style={{
               padding: '10px 20px',
-              background: '#fafafa',
+              background: 'rgba(34, 197, 94, 0.05)',
               borderRadius: '6px',
               boxShadow: colors.shadowBorder,
               color: colors.gray600,
@@ -396,11 +371,9 @@ export default function Home() {
 
       {/* Final CTA */}
       <section style={{
-        position: 'relative',
         maxWidth: '900px',
         margin: '0 auto 120px',
         padding: '0 24px',
-        zIndex: 1,
       }}>
         <div style={{
           background: `linear-gradient(135deg, ${colors.greenAccent}, ${colors.greenLight})`,
@@ -447,10 +420,8 @@ export default function Home() {
 
       {/* Footer */}
       <footer style={{
-        position: 'relative',
         borderTop: '1px solid #ebebeb',
         padding: '48px 24px',
-        zIndex: 1,
       }}>
         <div style={{
           maxWidth: '1200px',
