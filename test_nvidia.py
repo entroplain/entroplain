@@ -13,7 +13,7 @@ if not api_key:
 
 # Make request through proxy
 response = requests.post(
-    "http://localhost:8766/v1/chat/completions",
+    "http://localhost:8767/v1/chat/completions",
     headers={
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}"
@@ -52,5 +52,5 @@ for line in response.iter_lines():
 print("\n" + "-" * 40)
 
 # Check proxy health
-health = requests.get("http://localhost:8766/health")
+health = requests.get("http://localhost:8767/health")
 print(f"\nProxy stats: {health.json()}")

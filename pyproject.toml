@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "entroplain"
-version = "0.1.4"
+version = "0.2.0"
 description = "Entropy-based early exit for efficient agent reasoning"
 readme = "README.md"
 license = "MIT"
@@ -71,6 +71,7 @@ Issues = "https://github.com/entroplain/entroplain/issues"
 [project.scripts]
 entroplain = "entroplain.cli:main"
 entroplain-proxy = "entroplain.proxy:main"
+entroplain-dashboard = "entroplain.dashboard:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

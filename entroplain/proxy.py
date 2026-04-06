@@ -23,6 +23,7 @@ from fastapi.responses import StreamingResponse
 import uvicorn
 
 from .monitor import EntropyMonitor
+from .cost_tracker import CostTracker, format_cost_report
 
 logger = logging.getLogger(__name__)
 
@@ -33,12 +34,14 @@ class ProxyConfig:
     port: int = 8765
     provider: str = "openai"  # openai, anthropic, nvidia
     api_base: str = "https://api.openai.com/v1"
+    model: str = "default"  # For cost tracking
     entropy_threshold: float = 0.15
     min_valleys: int = 2
     min_tokens: int = 50
     velocity_threshold: float = 0.05
     enable_early_exit: bool = True
     log_entropy: bool = True
+    track_cost: bool = True
 
 
 class EntropyProxy:
@@ -57,6 +60,7 @@ class EntropyProxy:
             min_tokens=config.min_tokens,
             velocity_threshold=config.velocity_threshold
         )
+        self.cost_tracker = CostTracker(model=config.model) if config.track_cost else None
         self.app = FastAPI(title="Entroplain Proxy")
         self._setup_routes()
     
@@ -67,16 +71,31 @@ class EntropyProxy:
         
         @self.app.get("/health")
         async def health():
-            return {"status": "ok", "monitor": self.monitor.get_stats()}
+            stats = self.monitor.get_stats()
+            if self.cost_tracker and self.cost_tracker.output_tokens > 0:
+                stats["cost"] = self.cost_tracker.get_stats()
+            return {"status": "ok", "monitor": stats}
         
         @self.app.post("/reset")
         async def reset():
             self.monitor.reset()
+            if self.cost_tracker:
+                self.cost_tracker.reset()
             return {"status": "reset"}
     
     async def _handle_chat(self, request: Request):
         """Handle chat completion requests with entropy monitoring."""
         body = await request.json()
+        
+        # Extract model for cost tracking
+        model = body.get("model", "default")
+        if self.cost_tracker:
+            self.cost_tracker = CostTracker(model=model)
+        
+        # Estimate input tokens
+        input_tokens = self._estimate_tokens(body.get("messages", []))
+        if self.cost_tracker:
+            self.cost_tracker.track_input(input_tokens)
         
         # Ensure logprobs are enabled for entropy calculation
         if "logprobs" not in body:
@@ -113,6 +132,20 @@ class EntropyProxy:
             media_type="text/event-stream"
         )
     
+    def _estimate_tokens(self, messages: list) -> int:
+        """Rough estimate of input tokens from messages."""
+        total = 0
+        for msg in messages:
+            content = msg.get("content", "")
+            if isinstance(content, str):
+                # Rough estimate: ~4 chars per token
+                total += len(content) // 4
+            elif isinstance(content, list):
+                for part in content:
+                    if isinstance(part, dict) and part.get("type") == "text":
+                        total += len(part.get("text", "")) // 4
+        return max(total, 10)  # Minimum 10 tokens
+    
     async def _stream_with_entropy(
         self, response: httpx.Response
     ) -> AsyncIterator[str]:
@@ -144,6 +177,10 @@ class EntropyProxy:
                 if choice.get("delta", {}).get("content"):
                     token = choice["delta"]["content"]
                     full_content += token
+                    
+                    # Track output token for cost
+                    if self.cost_tracker:
+                        self.cost_tracker.track_output(1)
                 
                 # Calculate entropy from logprobs (handle null)
                 logprobs = choice.get("logprobs")
@@ -151,11 +188,18 @@ class EntropyProxy:
                     logprobs_data = logprobs["content"]
                     if logprobs_data:
                         entropy = self._calculate_entropy(logprobs_data[0])
-                        self.monitor.track(token, entropy)
+                        
+                        # Get confidence (top token probability)
+                        confidence = 0.0
+                        if logprobs_data[0].get("top_logprobs"):
+                            confidence = math.exp(logprobs_data[0]["top_logprobs"][0]["logprob"])
+                        
+                        self.monitor.track(token, entropy, confidence)
                         
                         if self.config.log_entropy:
                             logger.info(
                                 f"Token: {repr(token)}, Entropy: {entropy:.4f}, "
+                                f"Confidence: {confidence:.2%}, "
                                 f"Valleys: {len(self.monitor.get_valleys())}"
                             )
                         
@@ -164,11 +208,23 @@ class EntropyProxy:
                             self.config.enable_early_exit 
                             and self.monitor.should_exit()
                         ):
+                            exit_reason = self.monitor._get_exit_reason()
                             logger.info(
                                 f"Early exit triggered! "
+                                f"Reason: {exit_reason}, "
                                 f"Tokens: {len(full_content)}, "
                                 f"Valleys: {len(self.monitor.get_valleys())}"
                             )
+                            
+                            # Log cost savings
+                            if self.cost_tracker:
+                                # Estimate what full output would have been
+                                # Typically 2-3x for reasoning tasks
+                                estimated_full = len(full_content) * 2.5
+                                self.cost_tracker.set_full_estimate(int(estimated_full))
+                                estimate = self.cost_tracker.get_estimate()
+                                logger.info(f"Cost savings: ${estimate.cost_saved_usd:.4f} ({estimate.savings_percent:.1f}%)")
+                            
                             exited_early = True
                             yield "data: [DONE]\n\n"
                             break
@@ -205,6 +261,7 @@ class EntropyProxy:
 def main():
     """CLI entry point for running the proxy."""
     import argparse
+    import math  # Needed for entropy calculation
     
     parser = argparse.ArgumentParser(description="Entropy Monitoring Proxy")
     parser.add_argument("--port", type=int, default=8765, help="Proxy port")
@@ -218,6 +275,11 @@ def main():
         "--api-base",
         default="https://api.openai.com/v1",
         help="API base URL"
+    )
+    parser.add_argument(
+        "--model",
+        default="default",
+        help="Model name for cost tracking"
     )
     parser.add_argument(
         "--entropy-threshold",
@@ -241,6 +303,11 @@ def main():
         action="store_true",
         help="Log entropy values to console"
     )
+    parser.add_argument(
+        "--no-cost-tracking",
+        action="store_true",
+        help="Disable cost tracking"
+    )
     
     args = parser.parse_args()
     
@@ -248,10 +315,12 @@ def main():
         port=args.port,
         provider=args.provider,
         api_base=args.api_base,
+        model=args.model,
         entropy_threshold=args.entropy_threshold,
         min_valleys=args.min_valleys,
         enable_early_exit=not args.no_early_exit,
-        log_entropy=args.log_entropy
+        log_entropy=args.log_entropy,
+        track_cost=not args.no_cost_tracking
     )
     
     proxy = EntropyProxy(config)
@@ -263,7 +332,9 @@ def main():
     print(f"  Proxy:      http://localhost:{args.port}")
     print(f"  Provider:   {args.provider}")
     print(f"  API Base:   {args.api_base}")
+    print(f"  Model:      {args.model}")
     print(f"  Early Exit: {'ENABLED' if not args.no_early_exit else 'DISABLED'}")
+    print(f"  Cost Track: {'DISABLED' if args.no_cost_tracking else 'ENABLED'}")
     print("="*62)
     print("  Usage:")
     print(f"    export OPENAI_BASE_URL=http://localhost:{args.port}")

@@ -3,6 +3,8 @@ README.md
 pyproject.toml
 entroplain/__init__.py
 entroplain/cli.py
+entroplain/cost_tracker.py
+entroplain/dashboard.py
 entroplain/hooks.py
 entroplain/monitor.py
 entroplain/providers.py
