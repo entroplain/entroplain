@@ -4,6 +4,8 @@
 
 Stop burning tokens. Know when your agent has finished thinking.
 
+🌐 **Website:** https://entroplain-landing.vercel.app
+
 ---
 
 ## What It Does
