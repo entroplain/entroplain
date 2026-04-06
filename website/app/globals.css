@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #ffffff;
+  --bg-dark: #0a0a0a;
+  --fg: #171717;
+  --fg-muted: #666666;
+  --accent: #4ade80;
+  --accent-hover: #22c55e;
+  --border: rgba(0, 0, 0, 0.08);
+  --card: #fafafa;
+  --code-bg: #1e1e1e;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Vercel-style shadow-as-border */
+.border-shadow {
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.card-shadow {
+  box-shadow: 
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.04) 0px 2px 2px,
+    rgba(0, 0, 0, 0.04) 0px 8px 8px -8px;
+}
+
+/* Code blocks */
+code, pre {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+pre {
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+code {
+  color: #e0e0e0;
+}
+
+/* Tight tracking for headings */
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
+/* Selection */
+::selection {
+  background: rgba(74, 222, 128, 0.2);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
