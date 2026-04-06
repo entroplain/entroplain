@@ -1,6 +1,6 @@
 {
   "name": "entroplain",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Entropy-based early exit for efficient agent reasoning",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,7 +16,9 @@
     "entropy",
     "early-exit",
     "reasoning",
-    "efficiency"
+    "efficiency",
+    "cost-tracking",
+    "dashboard"
   ],
   "author": "Entroplain Contributors",
   "license": "MIT",
