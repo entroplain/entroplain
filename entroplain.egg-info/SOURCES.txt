@@ -9,6 +9,7 @@ entroplain/hooks.py
 entroplain/monitor.py
 entroplain/providers.py
 entroplain/proxy.py
+entroplain/shared_state.py
 entroplain.egg-info/PKG-INFO
 entroplain.egg-info/SOURCES.txt
 entroplain.egg-info/dependency_links.txt

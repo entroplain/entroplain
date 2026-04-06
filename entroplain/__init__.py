@@ -2,7 +2,7 @@
 Entroplain — Entropy-based early exit for efficient agent reasoning.
 """
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 __author__ = "Entroplain Contributors"
 
 from .monitor import EntropyMonitor, calculate_entropy_from_logprobs
