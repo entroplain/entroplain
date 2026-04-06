@@ -1,355 +1,458 @@
 export default function Home() {
-  return (
-    <main style={{ minHeight: '100vh', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif' }}>
-      {/* Hero */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', paddingTop: '80px' }}>
-        <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '80px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{ 
-              width: '32px', 
-              height: '32px', 
-              borderRadius: '8px', 
-              background: 'linear-gradient(135deg, #4ade80, #22c55e)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <span style={{ color: 'white', fontWeight: 700, fontSize: '16px' }}>E</span>
-            </div>
-            <span style={{ fontWeight: 600, fontSize: '18px', letterSpacing: '-0.02em' }}>Entroplain</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <a href="#how-it-works" style={{ color: '#666', textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>How it works</a>
-            <a href="#features" style={{ color: '#666', textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Features</a>
-            <a href="https://github.com/entroplain/entroplain" style={{ color: '#666', textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>GitHub</a>
-            <a href="https://pypi.org/project/entroplain/" style={{ 
-              padding: '8px 16px', 
-              background: '#171717', 
-              color: 'white', 
-              borderRadius: '8px', 
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: 500
-            }}>Get Started</a>
-          </div>
-        </nav>
+  const styles = {
+    // Vercel color system
+    black: '#171717',
+    white: '#ffffff',
+    gray600: '#4d4d4d',
+    gray400: '#808080',
+    gray100: '#ebebeb',
+    greenAccent: '#22c55e',
+    greenLight: '#4ade80',
+    
+    // Shadow-as-border technique (Vercel signature)
+    shadowBorder: 'rgba(0, 0, 0, 0.08) 0px 0px 0px 1px',
+    shadowCard: 'rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 2px, rgba(0,0,0,0.04) 0px 8px 8px -8px, #fafafa 0px 0px 0px 1px',
+  }
 
-        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ 
-            display: 'inline-flex', 
-            alignItems: 'center', 
-            gap: '8px', 
-            padding: '6px 12px', 
-            borderRadius: '100px', 
-              background: 'rgba(74, 222, 128, 0.1)', 
-            color: '#16a34a',
+  return (
+    <main style={{ minHeight: '100vh', background: styles.white }}>
+      {/* Navigation */}
+      <nav style={{
+        position: 'sticky',
+        top: 0,
+        background: 'rgba(255,255,255,0.9)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid #ebebeb',
+        padding: '0 24px',
+        height: '64px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        zIndex: 100,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{
+            width: '32px',
+            height: '32px',
+            borderRadius: '6px',
+            background: `linear-gradient(135deg, ${styles.greenAccent}, ${styles.greenLight})`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <span style={{ color: 'white', fontWeight: 700, fontSize: '14px' }}>E</span>
+          </div>
+          <span style={{ fontWeight: 600, fontSize: '16px', letterSpacing: '-0.02em', color: styles.black }}>Entroplain</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+          <a href="#how" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>How it works</a>
+          <a href="#features" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Features</a>
+          <a href="https://github.com/entroplain/entroplain" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>GitHub</a>
+          <a href="https://pypi.org/project/entroplain/" style={{
+            padding: '8px 16px',
+            background: styles.black,
+            color: styles.white,
+            borderRadius: '6px',
+            textDecoration: 'none',
             fontSize: '14px',
             fontWeight: 500,
-            marginBottom: '24px'
-          }}>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></span>
-            Save 30-50% on API costs
-          </div>
-          
-          <h1 style={{ 
-            fontSize: '56px', 
-            fontWeight: 600, 
-            letterSpacing: '-0.03em', 
-            lineHeight: 1.1,
-            marginBottom: '24px',
-            color: '#171717'
-          }}>
-            Stop wasting tokens.
-            <br />
-            <span style={{ color: '#999' }}>Exit early when confident.</span>
-          </h1>
-          
-          <p style={{ 
-            fontSize: '20px', 
-            color: '#666', 
-            lineHeight: 1.6,
-            marginBottom: '32px',
-            maxWidth: '600px',
-            margin: '0 auto 32px auto'
-          }}>
-            Entroplain monitors LLM reasoning entropy in real-time. When the model 
-            confidently knows the answer, it exits — saving tokens without sacrificing quality.
-          </p>
+          }}>Get Started</a>
+        </div>
+      </nav>
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '48px' }}>
-            <a href="https://pypi.org/project/entroplain/" style={{ 
-              padding: '14px 28px', 
-              background: '#22c55e', 
-              color: 'white', 
-              borderRadius: '10px', 
-              textDecoration: 'none',
-              fontSize: '16px',
-              fontWeight: 600,
-              boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3)'
-            }}>
-              pip install entroplain
-            </a>
-            <a href="https://github.com/entroplain/entroplain" style={{ 
-              padding: '14px 28px', 
-              border: '1px solid #e5e5e5', 
-              borderRadius: '10px', 
-              textDecoration: 'none',
-              fontSize: '16px',
-              fontWeight: 500,
-              color: '#171717'
-            }}>
-              View on GitHub
-            </a>
-          </div>
+      {/* Hero */}
+      <section style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '120px 24px 160px',
+        textAlign: 'center',
+      }}>
+        {/* Badge */}
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '6px 14px',
+          borderRadius: '9999px',
+          background: 'rgba(34, 197, 94, 0.08)',
+          marginBottom: '32px',
+        }}>
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: styles.greenAccent }} />
+          <span style={{ color: '#15803d', fontSize: '13px', fontWeight: 500 }}>Save 30-50% on API costs</span>
+        </div>
+
+        {/* Headline - Vercel-style tight tracking */}
+        <h1 style={{
+          fontSize: '72px',
+          fontWeight: 600,
+          letterSpacing: '-0.04em',
+          lineHeight: 1.0,
+          margin: '0 0 24px 0',
+          color: styles.black,
+        }}>
+          Stop wasting tokens.
+        </h1>
+        <h1 style={{
+          fontSize: '72px',
+          fontWeight: 600,
+          letterSpacing: '-0.04em',
+          lineHeight: 1.0,
+          margin: '0 0 32px 0',
+          color: styles.gray400,
+        }}>
+          Exit early when confident.
+        </h1>
+
+        {/* Subtitle */}
+        <p style={{
+          fontSize: '20px',
+          color: styles.gray600,
+          lineHeight: 1.7,
+          maxWidth: '640px',
+          margin: '0 auto 48px',
+        }}>
+          Entroplain monitors LLM reasoning entropy in real-time. When the model 
+          confidently knows the answer, it exits — saving tokens without sacrificing quality.
+        </p>
+
+        {/* CTAs */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+          <a href="https://pypi.org/project/entroplain/" style={{
+            padding: '14px 24px',
+            background: styles.greenAccent,
+            color: 'white',
+            borderRadius: '6px',
+            textDecoration: 'none',
+            fontSize: '16px',
+            fontWeight: 500,
+            boxShadow: '0 4px 16px rgba(34, 197, 94, 0.25)',
+          }}>
+            pip install entroplain
+          </a>
+          <a href="https://github.com/entroplain/entroplain" style={{
+            padding: '14px 24px',
+            background: 'transparent',
+            color: styles.black,
+            borderRadius: '6px',
+            textDecoration: 'none',
+            fontSize: '16px',
+            fontWeight: 500,
+            boxShadow: styles.shadowBorder,
+          }}>
+            View on GitHub
+          </a>
+        </div>
+
+        {/* Trust indicators */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '48px',
+          marginTop: '64px',
+          color: styles.gray400,
+          fontSize: '14px',
+        }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+            Works with any LLM
+          </span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+            Zero code changes
+          </span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+            Real-time dashboard
+          </span>
         </div>
       </section>
 
-      {/* Code Example */}
-      <section style={{ maxWidth: '900px', margin: '60px auto', padding: '0 24px' }}>
-        <div style={{ 
-          borderRadius: '16px', 
+      {/* Terminal Demo */}
+      <section style={{
+        maxWidth: '900px',
+        margin: '0 auto 160px',
+        padding: '0 24px',
+      }}>
+        <div style={{
+          borderRadius: '12px',
           overflow: 'hidden',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05)'
+          boxShadow: styles.shadowCard,
         }}>
-          <div style={{ 
-            background: '#1a1a1a', 
-            padding: '12px 16px', 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '8px' 
+          {/* Terminal header */}
+          <div style={{
+            background: '#1a1a1a',
+            padding: '14px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
           }}>
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }}></div>
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }}></div>
-            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }}></div>
-            <span style={{ marginLeft: '12px', color: '#666', fontSize: '13px' }}>terminal</span>
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
+            <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
+            <span style={{ marginLeft: '12px', color: '#666', fontSize: '12px', fontFamily: 'monospace' }}>terminal</span>
           </div>
-          <pre style={{ 
-            background: '#1a1a1a', 
-            padding: '24px', 
-            margin: 0,
-            fontFamily: '"SF Mono", "Fira Code", monospace',
+          {/* Terminal content */}
+          <div style={{
+            background: '#0a0a0a',
+            padding: '32px',
+            fontFamily: '"SF Mono", "Fira Code", Consolas, monospace',
             fontSize: '14px',
-            lineHeight: 1.6,
-            color: '#e0e0e0',
-            overflow: 'auto'
-          }}>{`# Install
-$ pip install entroplain
-
-# Run the proxy (works with any agent)
-$ entroplain-proxy --port 8765 --provider openai
-
-# That's it. Your agent now exits early when confident.
-# Open http://localhost:8765/dashboard to watch entropy in real-time.`}</pre>
+            lineHeight: 2,
+            color: '#a0a0a0',
+          }}>
+            <div><span style={{ color: '#22c55e' }}>$</span> pip install entroplain</div>
+            <div style={{ marginTop: '16px' }}><span style={{ color: '#22c55e' }}>$</span> entroplain-proxy --port 8765 --provider openai</div>
+            <div style={{ marginTop: '8px', color: '#666' }}>→ Proxy running on http://localhost:8765</div>
+            <div style={{ marginTop: '8px', color: '#666' }}>→ Dashboard at http://localhost:8765/dashboard</div>
+            <div style={{ marginTop: '16px' }}><span style={{ color: '#22c55e' }}>$</span> export OPENAI_BASE_URL=http://localhost:8765</div>
+            <div style={{ marginTop: '16px', color: '#4ade80' }}>✓ Your agent now exits early when confident</div>
+          </div>
         </div>
       </section>
 
       {/* How it Works */}
-      <section id="how-it-works" style={{ maxWidth: '1200px', margin: '80px auto', padding: '0 24px' }}>
-        <h2 style={{ 
-          fontSize: '36px', 
-          fontWeight: 600, 
-          textAlign: 'center', 
-          marginBottom: '48px',
-          letterSpacing: '-0.02em'
-        }}>How it works</h2>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
-          <div style={{ 
-            padding: '32px', 
-            borderRadius: '16px',
-            background: '#fafafa',
-            border: '1px solid #eee'
-          }}>
-            <div style={{ 
-              width: '56px', 
-              height: '56px', 
-              borderRadius: '12px', 
-              background: 'rgba(74, 222, 128, 0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '20px',
-              fontSize: '28px'
-            }}>📊</div>
-            <h3 style={{ fontWeight: 600, fontSize: '20px', marginBottom: '12px', letterSpacing: '-0.01em' }}>Monitor entropy</h3>
-            <p style={{ color: '#666', lineHeight: 1.6, margin: 0 }}>
-              Track token-level entropy in real-time. Low entropy = high confidence.
-            </p>
-          </div>
-
-          <div style={{ 
-            padding: '32px', 
-            borderRadius: '16px',
-            background: '#fafafa',
-            border: '1px solid #eee'
-          }}>
-            <div style={{ 
-              width: '56px', 
-              height: '56px', 
-              borderRadius: '12px', 
-              background: 'rgba(59, 130, 246, 0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '20px',
-              fontSize: '28px'
-            }}>🏔️</div>
-            <h3 style={{ fontWeight: 600, fontSize: '20px', marginBottom: '12px', letterSpacing: '-0.01em' }}>Detect valleys</h3>
-            <p style={{ color: '#666', lineHeight: 1.6, margin: 0 }}>
-              When entropy drops into a sustained valley, the model has converged.
-            </p>
-          </div>
-
-          <div style={{ 
-            padding: '32px', 
-            borderRadius: '16px',
-            background: '#fafafa',
-            border: '1px solid #eee'
-          }}>
-            <div style={{ 
-              width: '56px', 
-              height: '56px', 
-              borderRadius: '12px', 
-              background: 'rgba(168, 85, 247, 0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '20px',
-              fontSize: '28px'
-            }}>✂️</div>
-            <h3 style={{ fontWeight: 600, fontSize: '20px', marginBottom: '12px', letterSpacing: '-0.01em' }}>Exit early</h3>
-            <p style={{ color: '#666', lineHeight: 1.6, margin: 0 }}>
-              Stop generation once confident. Save 30-50% tokens.
-            </p>
+      <section id="how" style={{
+        background: '#fafafa',
+        padding: '160px 24px',
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <h2 style={{
+            fontSize: '48px',
+            fontWeight: 600,
+            letterSpacing: '-0.03em',
+            textAlign: 'center',
+            marginBottom: '80px',
+            color: styles.black,
+          }}>How it works</h2>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
+            {[
+              { num: '01', title: 'Monitor entropy', desc: 'Track token-level entropy in real-time. Low entropy means high confidence — the model knows the answer.', color: styles.greenAccent },
+              { num: '02', title: 'Detect valleys', desc: 'When entropy drops into a sustained valley, the model has converged on a confident, stable answer.', color: '#3b82f6' },
+              { num: '03', title: 'Exit early', desc: 'Stop generation once confidence is established. Save 30-50% tokens without quality loss.', color: '#a855f7' },
+            ].map((step, i) => (
+              <div key={i} style={{
+                background: styles.white,
+                borderRadius: '12px',
+                padding: '40px 32px',
+                boxShadow: styles.shadowCard,
+              }}>
+                <div style={{
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  color: step.color,
+                  marginBottom: '16px',
+                  fontFamily: 'monospace',
+                }}>{step.num}</div>
+                <h3 style={{
+                  fontSize: '24px',
+                  fontWeight: 600,
+                  letterSpacing: '-0.02em',
+                  marginBottom: '16px',
+                  color: styles.black,
+                }}>{step.title}</h3>
+                <p style={{ color: styles.gray600, lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section id="features" style={{ maxWidth: '1200px', margin: '80px auto', padding: '0 24px' }}>
-        <h2 style={{ 
-          fontSize: '36px', 
-          fontWeight: 600, 
-          textAlign: 'center', 
-          marginBottom: '48px',
-          letterSpacing: '-0.02em'
+      <section id="features" style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '160px 24px',
+      }}>
+        <h2 style={{
+          fontSize: '48px',
+          fontWeight: 600,
+          letterSpacing: '-0.03em',
+          textAlign: 'center',
+          marginBottom: '80px',
+          color: styles.black,
         }}>Features</h2>
-        
+
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
           {[
-            { icon: '🔄', title: 'Proxy-based integration', desc: 'Works with any agent — Claude Code, Cursor, OpenAI. No code changes.' },
-            { icon: '📈', title: 'Real-time dashboard', desc: 'Watch entropy visualization live. See when and why early exit triggered.' },
-            { icon: '💰', title: 'Cost tracking', desc: 'Know exactly how much you saved. Token counts and costs per request.' },
-            { icon: '🎯', title: 'Multiple exit strategies', desc: 'Valleys, velocity, confidence threshold, repetition detection.' },
-            { icon: '🔌', title: 'Multi-provider support', desc: 'OpenAI, Anthropic, NVIDIA, Google Gemini, OpenRouter, Ollama.' },
-            { icon: '📦', title: 'Python + Node.js', desc: 'Available on PyPI and npm. Use it wherever your agent runs.' },
+            { title: 'Proxy-based integration', desc: 'Works with any agent — Claude Code, Cursor, OpenAI, any framework. Zero code changes needed.' },
+            { title: 'Real-time dashboard', desc: 'Watch entropy visualization live. See exactly when and why early exit triggered.' },
+            { title: 'Cost tracking', desc: 'Know exactly how much you saved. Token counts, costs, and savings per request.' },
+            { title: 'Multiple exit strategies', desc: 'Valleys, velocity, confidence threshold, repetition detection. Pick your strategy.' },
+            { title: 'Multi-provider support', desc: 'OpenAI, Anthropic, NVIDIA, Google Gemini, OpenRouter, local models via Ollama.' },
+            { title: 'Python + Node.js', desc: 'Available on PyPI and npm. Use it wherever your agent runs.' },
           ].map((f, i) => (
-            <div key={i} style={{ 
-              padding: '24px', 
+            <div key={i} style={{
+              background: styles.white,
               borderRadius: '12px',
-              border: '1px solid #eee',
-              display: 'flex',
-              gap: '16px',
-              alignItems: 'flex-start'
+              padding: '32px',
+              boxShadow: styles.shadowBorder,
             }}>
-              <span style={{ fontSize: '24px' }}>{f.icon}</span>
-              <div>
-                <h3 style={{ fontWeight: 600, fontSize: '16px', marginBottom: '8px', letterSpacing: '-0.01em' }}>{f.title}</h3>
-                <p style={{ color: '#666', fontSize: '14px', lineHeight: 1.5, margin: 0 }}>{f.desc}</p>
-              </div>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: 600,
+                letterSpacing: '-0.01em',
+                marginBottom: '12px',
+                color: styles.black,
+              }}>{f.title}</h3>
+              <p style={{ color: styles.gray600, lineHeight: 1.6, margin: 0, fontSize: '15px' }}>{f.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Stats */}
-      <section style={{ maxWidth: '1000px', margin: '100px auto', padding: '0 24px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px', textAlign: 'center' }}>
+      <section style={{
+        background: styles.black,
+        padding: '120px 24px',
+      }}>
+        <div style={{
+          maxWidth: '1000px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '64px',
+          textAlign: 'center',
+        }}>
           <div>
-            <div style={{ fontSize: '64px', fontWeight: 700, color: '#22c55e', marginBottom: '8px' }}>30-50%</div>
-            <div style={{ color: '#666', fontSize: '18px' }}>Token savings</div>
+            <div style={{ fontSize: '80px', fontWeight: 600, letterSpacing: '-0.04em', color: styles.greenLight, marginBottom: '8px' }}>30-50%</div>
+            <div style={{ color: styles.gray400, fontSize: '16px' }}>Token savings</div>
           </div>
           <div>
-            <div style={{ fontSize: '64px', fontWeight: 700, color: '#171717', marginBottom: '8px' }}>0</div>
-            <div style={{ color: '#666', fontSize: '18px' }}>Code changes needed</div>
+            <div style={{ fontSize: '80px', fontWeight: 600, letterSpacing: '-0.04em', color: 'white', marginBottom: '8px' }}>0</div>
+            <div style={{ color: styles.gray400, fontSize: '16px' }}>Code changes</div>
           </div>
           <div>
-            <div style={{ fontSize: '64px', fontWeight: 700, color: '#171717', marginBottom: '8px' }}>6+</div>
-            <div style={{ color: '#666', fontSize: '18px' }}>LLM providers</div>
+            <div style={{ fontSize: '80px', fontWeight: 600, letterSpacing: '-0.04em', color: 'white', marginBottom: '8px' }}>6+</div>
+            <div style={{ color: styles.gray400, fontSize: '16px' }}>LLM providers</div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ maxWidth: '900px', margin: '80px auto', padding: '0 24px' }}>
-        <div style={{ 
-          borderRadius: '24px', 
-          background: '#171717', 
-          padding: '64px 48px', 
-          textAlign: 'center' 
+      {/* Supported Providers */}
+      <section style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '120px 24px',
+        textAlign: 'center',
+      }}>
+        <h3 style={{
+          fontSize: '14px',
+          fontWeight: 500,
+          color: styles.gray400,
+          marginBottom: '32px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+        }}>Works with any provider that exposes logprobs</h3>
+        
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: '12px',
         }}>
-          <h2 style={{ color: 'white', fontSize: '32px', fontWeight: 600, marginBottom: '16px', letterSpacing: '-0.02em' }}>
-            Start saving tokens today
-          </h2>
-          <p style={{ color: '#999', marginBottom: '32px', fontSize: '18px' }}>
-            Install in 30 seconds. No code changes. Works with your existing setup.
+          {['OpenAI', 'Anthropic Claude', 'NVIDIA NIM', 'Google Gemini', 'OpenRouter', 'Ollama', 'Together AI', 'Groq'].map((p) => (
+            <div key={p} style={{
+              padding: '10px 20px',
+              background: '#fafafa',
+              borderRadius: '6px',
+              boxShadow: styles.shadowBorder,
+              color: styles.gray600,
+              fontSize: '14px',
+              fontWeight: 500,
+            }}>{p}</div>
+          ))}
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section style={{
+        maxWidth: '900px',
+        margin: '0 auto 120px',
+        padding: '0 24px',
+      }}>
+        <div style={{
+          background: `linear-gradient(135deg, ${styles.greenAccent}, ${styles.greenLight})`,
+          borderRadius: '24px',
+          padding: '80px 64px',
+          textAlign: 'center',
+        }}>
+          <h2 style={{
+            fontSize: '40px',
+            fontWeight: 600,
+            letterSpacing: '-0.03em',
+            color: 'white',
+            marginBottom: '16px',
+          }}>Start saving tokens today</h2>
+          <p style={{
+            color: 'rgba(255,255,255,0.85)',
+            marginBottom: '32px',
+            fontSize: '18px',
+          }}>
+            Install in 30 seconds. No code changes. Works with your existing agent setup.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
-            <a href="https://pypi.org/project/entroplain/" style={{ 
-              padding: '14px 28px', 
-              background: '#22c55e', 
-              color: 'white', 
-              borderRadius: '10px', 
+            <a href="https://pypi.org/project/entroplain/" style={{
+              padding: '16px 32px',
+              background: 'white',
+              color: styles.greenAccent,
+              borderRadius: '6px',
               textDecoration: 'none',
               fontSize: '16px',
-              fontWeight: 600
-            }}>
-              pip install entroplain
-            </a>
-            <a href="https://github.com/entroplain/entroplain" style={{ 
-              padding: '14px 28px', 
-              border: '1px solid #333', 
-              borderRadius: '10px', 
+              fontWeight: 600,
+            }}>pip install entroplain</a>
+            <a href="https://github.com/entroplain/entroplain" style={{
+              padding: '16px 32px',
+              background: 'rgba(255,255,255,0.15)',
+              color: 'white',
+              borderRadius: '6px',
               textDecoration: 'none',
               fontSize: '16px',
               fontWeight: 500,
-              color: 'white'
-            }}>
-              View on GitHub
-            </a>
+            }}>View on GitHub</a>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer style={{ 
-        maxWidth: '1200px', 
-        margin: '0 auto', 
-        padding: '48px 24px', 
-        borderTop: '1px solid #eee',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+      <footer style={{
+        borderTop: '1px solid #ebebeb',
+        padding: '48px 24px',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ 
-            width: '24px', 
-            height: '24px', 
-            borderRadius: '6px', 
-            background: 'linear-gradient(135deg, #4ade80, #22c55e)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <span style={{ color: 'white', fontWeight: 700, fontSize: '12px' }}>E</span>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{
+              width: '24px',
+              height: '24px',
+              borderRadius: '4px',
+              background: `linear-gradient(135deg, ${styles.greenAccent}, ${styles.greenLight})`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <span style={{ color: 'white', fontWeight: 700, fontSize: '11px' }}>E</span>
+            </div>
+            <span style={{ fontWeight: 500, fontSize: '14px', color: styles.black }}>Entroplain</span>
           </div>
-          <span style={{ fontWeight: 500, fontSize: '14px' }}>Entroplain</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-          <a href="https://github.com/entroplain/entroplain" style={{ color: '#666', textDecoration: 'none', fontSize: '14px' }}>GitHub</a>
-          <a href="https://pypi.org/project/entroplain/" style={{ color: '#666', textDecoration: 'none', fontSize: '14px' }}>PyPI</a>
-          <a href="https://www.npmjs.com/package/entroplain" style={{ color: '#666', textDecoration: 'none', fontSize: '14px' }}>npm</a>
-          <a href="https://github.com/entroplain/entroplain/blob/main/LICENSE" style={{ color: '#666', textDecoration: 'none', fontSize: '14px' }}>MIT License</a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+            <a href="https://github.com/entroplain/entroplain" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px' }}>GitHub</a>
+            <a href="https://pypi.org/project/entroplain/" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px' }}>PyPI</a>
+            <a href="https://www.npmjs.com/package/entroplain" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px' }}>npm</a>
+            <a href="https://github.com/entroplain/entroplain/blob/main/LICENSE" style={{ color: styles.gray600, textDecoration: 'none', fontSize: '14px' }}>MIT License</a>
+          </div>
         </div>
       </footer>
     </main>
