@@ -4,7 +4,7 @@
 
 Stop burning tokens. Know when your agent has finished thinking.
 
-🌐 **Website:** https://entroplain-landing.vercel.app
+🌐 **Website:** https://entroplain-site-v2.vercel.app
 
 ---
 
