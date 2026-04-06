@@ -38,6 +38,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "entroplain": "^0.2.0",
     "openai": "^4.0.0"
   },
   "engines": {

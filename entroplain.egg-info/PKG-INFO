@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: entroplain
-Version: 0.2.0
+Version: 0.2.1
 Summary: Entropy-based early exit for efficient agent reasoning
 Author: Entroplain Contributors
 License-Expression: MIT
@@ -119,12 +119,12 @@ The **proxy** is the easiest way to use Entroplain with OpenClaw, Claude Code, o
 
 ```
 Your Agent → Proxy (localhost:8765) → Real API
-                  │
-                  ▼
-           Entropy Monitor
-                  │
-                  ▼
-           Early Exit Check
+               │
+               ▼
+         Entropy Monitor
+               │
+               ▼
+         Early Exit Check
 ```
 
 The proxy intercepts all LLM API calls, monitors entropy, and terminates streams when reasoning converges.
@@ -140,8 +140,10 @@ entroplain-proxy --port 8765 --log-entropy
 
 # Point your agent to the proxy
 export OPENAI_BASE_URL=http://localhost:8765/v1
+
 # or for NVIDIA:
 export NVIDIA_BASE_URL=http://localhost:8765/v1
+
 # or for Anthropic:
 export ANTHROPIC_BASE_URL=http://localhost:8765/v1
 ```
@@ -157,9 +159,52 @@ entroplain-proxy --port 8765 --no-early-exit
 # Custom thresholds
 entroplain-proxy --port 8765 --entropy-threshold 0.2 --min-valleys 3
 
-# Log entropy values
-entroplain-proxy --port 8765 --log-entropy
+# Enable cost tracking
+entroplain-proxy --port 8765 --model gpt-4o --log-entropy
+
+# Launch dashboard
+entroplain-dashboard --port 8050
 ```
+
+---
+
+## 🎯 Dashboard
+
+Real-time entropy visualization:
+
+```bash
+# Start the dashboard
+entroplain-dashboard --port 8050
+
+# Open in browser
+open http://localhost:8050
+```
+
+The dashboard shows:
+- **Live entropy curve** with valley markers
+- **Token count** and valleys detected
+- **Cost savings** in real-time
+- **Status badges** (active/idle/exited)
+
+---
+
+## 💰 Cost Tracking
+
+Track actual savings from early exit:
+
+```python
+from entroplain import CostTracker
+
+tracker = CostTracker(model="gpt-4o")
+tracker.track_input(100)   # 100 input tokens
+tracker.track_output(50)   # 50 output tokens
+tracker.set_full_estimate(150)  # Would have been 150
+
+estimate = tracker.get_estimate()
+print(f"Saved ${estimate.cost_saved_usd:.4f} ({estimate.savings_percent:.1f}%)")
+```
+
+**Supported pricing:** GPT-4o, GPT-4-turbo, Claude 4, Llama 3.1 (NVIDIA), or custom rates.
 
 ---
 
@@ -179,7 +224,7 @@ for token in provider.stream_with_entropy(
 ):
     monitor.track(token.token, token.entropy)
     print(token.token, end="")
-    
+
     if monitor.should_exit():
         print("\n[Early exit - reasoning converged]")
         break
@@ -205,13 +250,35 @@ Local minima in the entropy trajectory indicate reasoning milestones:
 
 ```text
 Entropy: 0.8 → 0.6 → 0.3* → 0.5 → 0.2* → 0.1*
-                       ↑               ↑
-                   Valley 1        Valley 2
+                      ↑             ↑
+                  Valley 1      Valley 2
 ```
 
 ### 3. Exit at the Right Moment
 
 When valley count plateaus and velocity stabilizes, reasoning is complete.
+
+---
+
+## Exit Strategies
+
+Choose how Entroplain detects convergence:
+
+| Strategy | Description |
+|----------|-------------|
+| `combined` | Entropy low OR valleys plateau, AND velocity stable (default) |
+| `valleys_plateau` | Exit when reasoning milestones stabilize |
+| `entropy_drop` | Exit when model confidence is high |
+| `velocity_zero` | Exit when entropy stops changing |
+| `repetition` | Exit when model starts repeating itself |
+| `confidence` | Exit when top token prob > 95% for N tokens |
+
+```python
+monitor = EntropyMonitor(
+    exit_condition="repetition",  # or "confidence", "combined", etc.
+    repetition_threshold=0.3,      # Exit when 30% of recent tokens repeat
+)
+```
 
 ---
 
@@ -221,9 +288,9 @@ Tested on Llama-3.1-70b via NVIDIA API:
 
 | Difficulty | Avg Valleys | Avg Entropy | Avg Velocity |
 |------------|-------------|-------------|--------------|
-| Easy | 61.3 | 0.3758 | 0.4852 |
-| Medium | 53.0 | 0.3267 | 0.4394 |
-| Hard | 70.2 | 0.2947 | 0.4095 |
+| Easy       | 61.3        | 0.3758      | 0.4852       |
+| Medium     | 53.0        | 0.3267      | 0.4394       |
+| Hard       | 70.2        | 0.2947      | 0.4095       |
 
 **Finding:** Hard problems have more entropy valleys (70.2 vs 61.3) — valleys correlate with reasoning complexity.
 
@@ -265,11 +332,11 @@ for chunk in response:
     if chunk.choices[0].delta.content:
         token = chunk.choices[0].delta.content
         entropy = monitor.calculate_entropy(chunk.choices[0].logprobs)
-        
+
         if monitor.should_exit():
             print("\n[Early exit — reasoning converged]")
             break
-        
+
         print(token, end="")
 ```
 
@@ -308,25 +375,11 @@ with client.messages.stream(
 ) as stream:
     for text in stream.text_stream:
         entropy = monitor.get_entropy()
+
         if monitor.should_exit():
             break
+
         print(text, end="", flush=True)
-```
-
----
-
-## Configuration
-
-### Exit Conditions
-
-```python
-monitor = EntropyMonitor(
-    entropy_threshold=0.15,  # Exit when entropy drops below this
-    min_valleys=2,           # Require N reasoning milestones
-    min_tokens=50,           # Don't exit before this many tokens
-    velocity_threshold=0.05, # Exit when change rate stabilizes
-    exit_condition="combined"  # or: "valleys_plateau", "entropy_drop", "velocity_zero"
-)
 ```
 
 ---
@@ -341,7 +394,10 @@ entroplain analyze "What is 2+2?" --model gpt-4o
 entroplain stream "Explain quantum computing" --exit-on-converge
 
 # Run the proxy (works with any agent)
-entroplain-proxy --port 8765 --log-entropy
+entroplain-proxy --port 8765 --log-entropy --model gpt-4o
+
+# Launch the dashboard
+entroplain-dashboard --port 8050
 
 # Benchmark entropy patterns
 entroplain benchmark --problems gsm8k --output results.json
@@ -360,37 +416,60 @@ class EntropyMonitor:
         entropy_threshold: float = 0.15,
         min_valleys: int = 2,
         velocity_threshold: float = 0.05,
-        min_tokens: int = 50
+        min_tokens: int = 50,
+        exit_condition: str = "combined"
     ):
         ...
-    
-    def track(self, token: str, entropy: float) -> EntropyPoint:
+
+    def track(self, token: str, entropy: float, confidence: float = 0.0) -> EntropyPoint:
         """Track a token and its entropy value."""
-    
+
     def should_exit(self) -> bool:
         """Determine if reasoning has converged."""
-    
+
     def get_valleys(self) -> List[Tuple[int, float]]:
         """Get all entropy valleys (local minima)."""
-    
+
     def get_stats(self) -> Dict:
         """Get current statistics."""
-    
+
     def reset(self) -> None:
         """Clear all tracked data."""
+```
+
+### `CostTracker`
+
+```python
+class CostTracker:
+    def __init__(self, model: str = "default"):
+        ...
+
+    def track_input(self, tokens: int):
+        """Track input tokens."""
+
+    def track_output(self, tokens: int):
+        """Track output tokens."""
+
+    def set_full_estimate(self, tokens: int):
+        """Set estimated output if no early exit."""
+
+    def get_estimate(self) -> CostEstimate:
+        """Get cost estimate with savings."""
 ```
 
 ### `EntropyProxy`
 
 ```bash
 # Run the proxy
-entroplain-proxy --port 8765 --log-entropy
+entroplain-proxy --port 8765 --log-entropy --model gpt-4o
 
 # Options
---entropy-threshold 0.15   # Exit threshold
---min-valleys 2            # Minimum valleys
---no-early-exit            # Monitor only, don't exit
---log-entropy              # Log entropy values
+--entropy-threshold 0.15    # Exit threshold
+--min-valleys 2             # Minimum valleys
+--no-early-exit             # Monitor only, don't exit
+--log-entropy               # Log entropy values
+--model gpt-4o              # Model for cost tracking
+--no-cost-tracking          # Disable cost tracking
 ```
 
 ---
