@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: entroplain
-Version: 0.2.2
+Version: 0.2.3
 Summary: Entropy-based early exit for efficient agent reasoning
 Author: Entroplain Contributors
 License-Expression: MIT
@@ -65,6 +65,8 @@ Dynamic: license-file
 **Entropy-based early exit for efficient agent reasoning.**
 
 Stop burning tokens. Know when your agent has finished thinking.
+
+🌐 **Website:** https://entroplain-site-v2.vercel.app
 
 ---
 

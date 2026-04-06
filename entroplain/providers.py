@@ -375,7 +375,7 @@ class NVIDIAProvider(BaseProvider):
                     if "choices" in chunk:
                         for choice in chunk["choices"]:
                             if "delta" in choice and "content" in choice["delta"]:
-                                logprobs = choice.get("logprobs", {}).get("content", [])
+                                logprobs_data = choice.get("logprobs"); logprobs = logprobs_data.get("content", []) if logprobs_data else []
                                 for lp_data in logprobs:
                                     entropy = self.calculate_entropy(lp_data)
                                     yield TokenWithEntropy(
@@ -425,7 +425,7 @@ class NVIDIAProvider(BaseProvider):
                         if "choices" in chunk:
                             for choice in chunk["choices"]:
                                 if "delta" in choice and "content" in choice["delta"]:
-                                    logprobs = choice.get("logprobs", {}).get("content", [])
+                                    logprobs_data = choice.get("logprobs"); logprobs = logprobs_data.get("content", []) if logprobs_data else []
                                     for lp_data in logprobs:
                                         entropy = self.calculate_entropy(lp_data)
                                         yield TokenWithEntropy(

@@ -527,7 +527,7 @@ def main():
     parser = argparse.ArgumentParser(description="Entropy Monitoring Proxy")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--provider", default="openai", choices=["openai", "anthropic", "nvidia"])
-    parser.add_argument("--api-base", default="https://api.openai.com/v1")
+    parser.add_argument("--api-base", default=None, help="API base URL (auto-set based on provider)")
     parser.add_argument("--model", default="default")
     parser.add_argument("--entropy-threshold", type=float, default=0.15)
     parser.add_argument("--min-valleys", type=int, default=2)
@@ -536,10 +536,7 @@ def main():
     parser.add_argument("--no-cost-tracking", action="store_true")
     args = parser.parse_args()
     
-    config = ProxyConfig(
-        port=args.port,
-        provider=args.provider,
-        api_base=args.api_base,
+    # Auto-set API base URL based on provider`n api_base = args.api_base`n if api_base is None:`n if args.provider == "openai":`n api_base = "https://api.openai.com/v1"`n elif args.provider == "anthropic":`n api_base = "https://api.anthropic.com/v1"`n elif args.provider == "nvidia":`n api_base = "https://integrate.api.nvidia.com/v1"`n `n config = ProxyConfig(`n port=args.port,`n provider=args.provider,`n api_base=api_base,
         model=args.model,
         entropy_threshold=args.entropy_threshold,
         min_valleys=args.min_valleys,
@@ -561,3 +558,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
